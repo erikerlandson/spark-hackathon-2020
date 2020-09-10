@@ -1,2 +1,2 @@
-# spark-data-federation-tutorial
-Notebooks for data federation in spark tutorial and talk
+# spark-hackathon-2020
+Notebooks and deploy manifests for spark talk at hackathon september 2020
