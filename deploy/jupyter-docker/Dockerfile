@@ -1,5 +1,4 @@
 FROM quay.io/odh-jupyterhub/s2i-spark-minimal-notebook:3.6
-# FROM image-registry.openshift-image-registry.svc:5000/odh-sqn/s2i-spark-minimal-notebook:3.6
 
 USER root
 
