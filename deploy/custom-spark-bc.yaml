@@ -1,0 +1,29 @@
+﻿kind: BuildConfig
+apiVersion: build.openshift.io/v1
+metadata:
+  name: spark-hackathon-2020
+spec:
+  output:
+    to:
+      kind: ImageStreamTag
+      name: spark-hackathon-2020:latest
+  resources:
+    limits:
+      cpu: '500m'
+      memory: '512Mi'
+  successfulBuildsHistoryLimit: 1
+  failedBuildsHistoryLimit: 1
+  strategy:
+    type: Docker
+    dockerStrategy: {}
+  source:
+    type: Git
+    git:
+      uri: 'git@github.com:erikerlandson/spark-hackathon-2020.git'
+      ref: master
+    contextDir: deploy/spark-docker
+    sourceSecret:
+      name: hackathon-2020    
+  triggers:
+  - type: ConfigChange
+  runPolicy: Serial
