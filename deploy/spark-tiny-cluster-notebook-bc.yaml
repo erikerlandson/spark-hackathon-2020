@@ -1,12 +1,12 @@
 ﻿kind: BuildConfig
 apiVersion: build.openshift.io/v1
 metadata:
-  name: spark-tiny-cluster-notebook
+  name: spark-hackathon-notebook
 spec:
   output:
     to:
       kind: ImageStreamTag
-      name: spark-tiny-cluster-notebook:latest
+      name: spark-hackathon-notebook:latest
   resources:
     limits:
       cpu: '500m'
