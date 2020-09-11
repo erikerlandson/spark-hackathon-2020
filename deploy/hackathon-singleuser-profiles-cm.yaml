@@ -1,0 +1,42 @@
+﻿kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: hackathon-singleuser-profiles
+  labels:
+    jupyterhub: singleuser-profiles
+data:
+  jupyterhub-singleuser-profiles.yaml: |
+    profiles:
+      - name: 'Hackathon Spark Profile'
+        images:
+          - 'spark-hackathon-notebook:latest'
+        env:
+          PYSPARK_DRIVER_PYTHON: jupyter
+          PYSPARK_DRIVER_PYTHON_OPTS: notebook
+          PYSPARK_SUBMIT_ARGS: '--conf spark.driver.memory=3g --conf spark.driver.maxResultSize=0 --conf spark.cores.max=2 --conf spark.executor.memory=3900m --conf spark.executor.cores=1 --conf spark.executor.instances=2 pyspark-shell'
+        services:
+          spark:
+            template: jupyterhub-spark-operator-configmap
+            parameters:
+              WORKER_NODES: 2
+              WORKER_CPU_LIMIT: 1
+              WORKER_CPU_REQUEST: 500m
+              WORKER_MEMORY_LIMIT: 4Gi
+              WORKER_MEMORY_REQUEST: 1Gi
+              MASTER_NODES: 1
+              MASTER_CPU_LIMIT: 1
+              MASTER_CPU_REQUEST: 250m
+              MASTER_MEMORY_LIMIT: 4Gi
+              MASTER_MEMORY_REQUEST: 1Gi
+              SPARK_IMAGE: docker-registry.default.svc:5000/hackathon/spark-hackathon-2020:latest
+            return:
+              SPARK_CLUSTER: "metadata.name"
+    sizes:
+      - name: 4 gig single core
+        resources:
+          mem_limit: 4Gi
+          cpu_limit: 1
+      - name: 8 gig single core
+        resources:
+          mem_limit: 8Gi
+          cpu_limit: 1
